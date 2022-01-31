@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        observer()
-        scheduler()
-
+//        scheduler()
+        disposable()
     }
 
     private fun observer() {
@@ -69,6 +69,20 @@ class MainActivity : AppCompatActivity() {
         val observable = Observable.range(1, 1000)
         observable
             .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { s ->
+                    Log.e("karimDebug", "MainActivity, scheduler , 70");
+                },
+                { e ->
+                    Log.e("karimDebug", "MainActivity, scheduler , 73");
+                })
+    }
+
+    lateinit var mDisposable: Disposable
+    private fun disposable() {
+        val observable = Observable.range(1, 1000)
+        mDisposable = observable.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { s ->
