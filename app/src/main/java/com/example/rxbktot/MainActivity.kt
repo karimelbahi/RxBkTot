@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
 
 //        observer()
 //        scheduler()
-        disposable()
+//        disposable()
+        compositeDisposable()
     }
 
     private fun observer() {
@@ -92,6 +93,29 @@ class MainActivity : AppCompatActivity() {
                     Log.e("karimDebug", "MainActivity, scheduler , 73");
                 })
     }
+
+    lateinit var mCompositeDisposable: CompositeDisposable
+    private fun compositeDisposable() {
+        val observable = Observable.range(1, 1000)
+        mCompositeDisposable.add(
+            observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { s ->
+                        Log.e("karimDebug", "MainActivity, scheduler , 70");
+                    },
+                    { e ->
+                        Log.e("karimDebug", "MainActivity, scheduler , 73");
+                    })
+        )
+    }
+    override fun onDestroy() {
+//        mDisposable.dispose()
+        mCompositeDisposable.clear()
+        super.onDestroy()
+    }
+
 
 
 }
