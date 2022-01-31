@@ -27,7 +27,8 @@ class MainActivity : AppCompatActivity() {
 //        compositeDisposable()
 //        single()
 //        completable()
-        maybe()
+//        maybe()
+        flowable()
     }
 
     private fun observer() {
@@ -116,7 +117,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
 //        mDisposable.dispose()
-        mCompositeDisposable.clear()
+        mCompositeDisposable.dispose()
         super.onDestroy()
     }
 
@@ -223,6 +224,20 @@ class MainActivity : AppCompatActivity() {
                 Log.e("karimDebug", "MainActivity, maybe , 222");
             }
         )
+    }
+
+    private fun flowable() {
+        var flowable = Flowable.range(1, 1000)
+
+        flowable.onBackpressureLatest()
+            .observeOn(Schedulers.io(), false, 5)
+            .subscribe({
+                Log.e("karimDebug", "$it MainActivity, flowable , 234");
+            }, {
+                Log.e("karimDebug", "MainActivity, flowable , 236");
+            }, {
+                Log.e("karimDebug", "MainActivity, flowable , 238");
+            })
     }
 
 }
