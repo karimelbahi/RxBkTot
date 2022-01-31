@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
 //        scheduler()
 //        disposable()
 //        compositeDisposable()
-        single()
+//        single()
+        completable()
     }
 
     private fun observer() {
@@ -158,6 +159,46 @@ class MainActivity : AppCompatActivity() {
         Log.e("karimDebug", "MainActivity, onDataError , 156");
     }
 
+
+    private fun completable() {
+        val completable = Completable.create { emitter ->
+            binding.editText.doOnTextChanged { text, start, before, count ->
+                if (text.toString() == "completable") {
+                    emitter.onComplete()
+                } else {
+                    Log.e("karimDebug", "MainActivity, completable , 170");
+                }
+            }
+        }
+
+/*        completable.subscribe(object : CompletableObserver {
+            override fun onSubscribe(d: Disposable?) {
+
+            }
+
+            override fun onComplete() {
+                Log.e("karimDebug","MainActivity, onComplete , 180");
+            }
+
+            override fun onError(e: Throwable?) {
+
+            }
+        })*/
+/*        completable.subscribe(
+            {
+                Log.e("karimDebug", "onComplete MainActivity, completable , 173");
+            }, { e ->
+                Log.e("karimDebug","onError MainActivity, completable , 191");
+            }
+        )*/
+        completable.subscribe(::onCompletableSuccess,::onCompletableError)
+    }
+    private fun onCompletableSuccess(){
+        Log.e("karimDebug","MainActivity, onCompletableSuccess , 196");
+    }
+    private fun onCompletableError(e: Throwable){
+        Log.e("karimDebug","MainActivity, onCompletableError , 199");
+    }
 
 
 }
