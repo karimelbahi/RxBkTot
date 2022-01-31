@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        observer()
+        scheduler()
 
     }
 
@@ -63,5 +64,20 @@ class MainActivity : AppCompatActivity() {
             }
         )
     }
+
+    private fun scheduler() {
+        val observable = Observable.range(1, 1000)
+        observable
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { s ->
+                    Log.e("karimDebug", "MainActivity, scheduler , 70");
+                },
+                { e ->
+                    Log.e("karimDebug", "MainActivity, scheduler , 73");
+                })
+    }
+
 
 }
