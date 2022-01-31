@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
 //        observer()
 //        scheduler()
 //        disposable()
-        compositeDisposable()
+//        compositeDisposable()
+        single()
     }
 
     private fun observer() {
@@ -110,10 +111,51 @@ class MainActivity : AppCompatActivity() {
                     })
         )
     }
+
     override fun onDestroy() {
 //        mDisposable.dispose()
         mCompositeDisposable.clear()
         super.onDestroy()
+    }
+
+    private fun single() {
+        var single = Single.just(10)
+/*        var singleObserver = object : SingleObserver<Int> {
+            override fun onSubscribe(d: Disposable?) {
+                Log.e("karimDebug", "MainActivity, onSubscribe , 21");
+            }
+            override fun onError(e: Throwable?) {
+                Log.e("karimDebug", "MainActivity, onError , 29");
+            }
+            override fun onSuccess(t: Int?) {
+                Log.e("karimDebug", "MainActivity, onSuccess , 76");
+            }
+        }
+        single.subscribe(singleObserver)*/
+
+        // lambda
+/*        single.subscribe(
+            {
+                Log.e("karimDebug", "$it MainActivity, onNext , 25");
+
+            },
+            {
+                Log.e("karimDebug", "$it MainActivity, onError , 29");
+
+            }
+        )*/
+
+        // higher order function
+        single.subscribe(::onDateSuccess, ::onDataError)
+
+    }
+
+    private fun onDateSuccess(result: Int) {
+        Log.e("karimDebug", "MainActivity, onDateSuccess , 151");
+    }
+
+    private fun onDataError(e: Throwable) {
+        Log.e("karimDebug", "MainActivity, onDataError , 156");
     }
 
 
