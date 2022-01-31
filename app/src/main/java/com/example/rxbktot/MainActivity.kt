@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
 //        disposable()
 //        compositeDisposable()
 //        single()
-        completable()
+//        completable()
+        maybe()
     }
 
     private fun observer() {
@@ -191,14 +192,37 @@ class MainActivity : AppCompatActivity() {
                 Log.e("karimDebug","onError MainActivity, completable , 191");
             }
         )*/
-        completable.subscribe(::onCompletableSuccess,::onCompletableError)
-    }
-    private fun onCompletableSuccess(){
-        Log.e("karimDebug","MainActivity, onCompletableSuccess , 196");
-    }
-    private fun onCompletableError(e: Throwable){
-        Log.e("karimDebug","MainActivity, onCompletableError , 199");
+        completable.subscribe(::onCompletableSuccess, ::onCompletableError)
     }
 
+    private fun onCompletableSuccess() {
+        Log.e("karimDebug", "MainActivity, onCompletableSuccess , 196");
+    }
+
+    private fun onCompletableError(e: Throwable) {
+        Log.e("karimDebug", "MainActivity, onCompletableError , 199");
+    }
+
+    private fun maybe() {
+        val maybe = Maybe.create<String> { emitter ->
+            binding.editText.doOnTextChanged { text, start, before, count ->
+                when (text.toString()) {
+                    "maybe" -> emitter.onSuccess("hi, form maybe")
+                    "other" -> emitter.onComplete()
+                }
+            }
+        }
+        maybe.subscribe(
+            {
+                Log.e("karimDebug", "$it MainActivity, maybe , 216");
+            },
+            {
+                Log.e("karimDebug", "MainActivity, maybe , 219");
+            },
+            {
+                Log.e("karimDebug", "MainActivity, maybe , 222");
+            }
+        )
+    }
 
 }
