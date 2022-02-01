@@ -191,7 +191,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-
     private fun map() {
         val list = listOf(1, 2, 3, 4, 5, 67, 8, 9)
         val observable = Observable
@@ -203,7 +202,6 @@ class MainActivity : AppCompatActivity() {
             Log.d("infoLog", "map , 182");
         })
     }
-
 
     private fun concatWith() {
         val observable = Observable
