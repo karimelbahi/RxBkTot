@@ -1,8 +1,8 @@
 package com.example.rxbktot
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.example.rxbktot.databinding.ActivityMainBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -369,17 +369,20 @@ class MainActivity : AppCompatActivity() {
         subject.onNext(1)
         subject.onNext(2)
 
-        subject.subscribe({
-            Log.e("karimDebug", "$it MainActivity, , 234");
-        }, {
-            Log.e("karimDebug", "MainActivity, , 236");
-        }, {
-            Log.e("karimDebug", "MainActivity, , 238");
-        })
+        binding.editText.doOnTextChanged { text, start, before, count ->
+            if (text.toString() == "start") {
+                subject.subscribe({
+                    Log.e("karimDebug", "$it MainActivity, , 234");
+                }, {
+                    Log.e("karimDebug", "MainActivity, , 236");
+                }, {
+                    Log.e("karimDebug", "MainActivity, , 238");
+                })
+            }
 
-        subject.onNext(10)
-        subject.onNext(20)
-
+            subject.onNext(10)
+            subject.onNext(20)
+        }
     }
 
 }
