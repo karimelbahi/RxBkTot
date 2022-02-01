@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity() {
 //        convertObservablesToOtherOne()
 //        coldObservables()
 //        coldToHotObservable()
-        subjectAsObservableAndObserver()
+//        subjectAsObservableAndObserver()
+        publishSubjectAsObservableOnly()
     }
 
 
@@ -355,6 +356,29 @@ class MainActivity : AppCompatActivity() {
         }, {
             Log.e("karimDebug", "MainActivity,  238");
         })
+
+    }
+
+    private fun publishSubjectAsObservableOnly() {
+
+        val subject = PublishSubject.create<Long>()
+
+        /*
+        * will be ignored
+        * */
+        subject.onNext(1)
+        subject.onNext(2)
+
+        subject.subscribe({
+            Log.e("karimDebug", "$it MainActivity, , 234");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 236");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 238");
+        })
+
+        subject.onNext(10)
+        subject.onNext(20)
 
     }
 
