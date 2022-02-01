@@ -1,4 +1,4 @@
-# This is a easy-peasy repo contains most important Rx observers, observables, and operator with some samples
+# This is an easy-peasy repo contains most important Rx observers, observables, and operator with some samples
 
 ## Samples
 
