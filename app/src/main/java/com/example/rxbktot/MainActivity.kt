@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         repeat()
         range()
         rangeRepeat()
+        interval()
 
         /*
         * observables
@@ -108,6 +109,17 @@ class MainActivity : AppCompatActivity() {
             Log.d("infoLog", "$it rangeRepeat , 99");
         }, {
             Log.d("infoLog", "rangeRepeat , 102");
+        })
+    }
+
+    private fun interval() {
+
+        val observable = Observable
+            .interval(10, TimeUnit.SECONDS)
+        observable.subscribe({
+            Log.d("infoLog", "$it interval , 113");
+        }, {
+            Log.d("infoLog", "interval , 115");
         })
     }
 
