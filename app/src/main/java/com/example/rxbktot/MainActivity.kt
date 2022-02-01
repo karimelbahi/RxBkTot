@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         range()
         rangeRepeat()
         interval()
+        take()
 
         /*
         * observables
@@ -122,6 +123,18 @@ class MainActivity : AppCompatActivity() {
             Log.d("infoLog", "interval , 115");
         })
     }
+
+    private fun take() {
+        val observable = Observable
+            .range(1, 10000)
+            .take(500, TimeUnit.SECONDS)
+        observable.subscribe({
+            Log.d("infoLog", "$it take , 123");
+        }, {
+            Log.d("infoLog", "take , 125");
+        })
+    }
+
 
 
 
