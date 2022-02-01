@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         fromArray()
         repeat()
         range()
+        rangeRepeat()
 
         /*
         * observables
@@ -99,9 +100,21 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun rangeRepeat() {
+        val observable = Observable
+            .range(1, 10)
+            .repeat(2)
+        observable.subscribe({
+            Log.d("infoLog", "$it rangeRepeat , 99");
+        }, {
+            Log.d("infoLog", "rangeRepeat , 102");
+        })
+    }
 
 
-   // observables
+
+
+    // observables
     private fun observer() {
         var firstObservable =
             Observable.interval(1, TimeUnit.MILLISECONDS).take(10).map { it * 100 }
