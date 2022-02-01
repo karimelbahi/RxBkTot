@@ -1,4 +1,4 @@
-# RxBkTot : this repo contains most important Rx observers, observables, and operator with some samples
+# This is a easy-peasy repo contains most important Rx observers, observables, and operator with some samples
 
 ## Samples
 
@@ -21,3 +21,6 @@
 * replySubject
 * rxKotlin
 
+## Resources
+* https://reactivex.io/documentation/operators.html
+* https://github.com/ReactiveX/RxKotlin
