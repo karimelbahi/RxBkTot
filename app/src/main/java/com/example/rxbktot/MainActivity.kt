@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         rangeRepeat()
         interval()
         take()
+        skip()
 
         /*
         * observables
@@ -135,7 +136,16 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-
+    private fun skip() {
+        val observable = Observable
+            .range(1, 10000)
+            .skip(500)
+        observable.subscribe({
+            Log.d("infoLog", "$it skip , 134");
+        }, {
+            Log.d("infoLog", "skip , 136");
+        })
+    }
 
 
 
