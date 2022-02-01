@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         interval()
         take()
         skip()
+        timer()
+        distinct()
 
         /*
         * observables
@@ -144,6 +146,28 @@ class MainActivity : AppCompatActivity() {
             Log.d("infoLog", "$it skip , 134");
         }, {
             Log.d("infoLog", "skip , 136");
+        })
+    }
+
+    private fun timer() {
+        val observable = Observable
+            .timer(5, TimeUnit.SECONDS)
+        observable.subscribe({
+            Log.d("infoLog", "$it timer , 144");
+        }, {
+            Log.d("infoLog", "timer , 146");
+        })
+    }
+
+    private fun distinct() {
+        val list = listOf(1, 2, 3, 4, 5, 67, 8, 9)
+        val observable = Observable
+            .fromIterable(list)
+            .distinct()
+        observable.subscribe({
+            Log.d("infoLog", "$it distinct , 156");
+        }, {
+            Log.d("infoLog", "distinct , 158");
         })
     }
 
