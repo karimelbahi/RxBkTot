@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         completable()
         maybe()
         flowable()
-        convertObservablesToOtherOne()
+        convertObservablesToAnotherOne()
         coldObservables()
         coldToHotObservable()
         subjectAsObservableAndObserver()
@@ -257,17 +257,17 @@ class MainActivity : AppCompatActivity() {
             )
     }
 
-    private fun convertObservablesToOtherOne() {
+    private fun convertObservablesToAnotherOne() {
         var observable = Observable.range(1, 1000)
 
         observable.toFlowable(BackpressureStrategy.MISSING)
             .observeOn(Schedulers.io(), false, 5)
             .subscribe({
-                Log.d("infoLog", "$it convertObservablesToOtherOne , 265");
+                Log.d("infoLog", "$it convertObservablesToAnotherOne , 265");
             }, {
-                Log.d("infoLog", "convertObservablesToOtherOne , 267");
+                Log.d("infoLog", "convertObservablesToAnotherOne , 267");
             }, {
-                Log.d("infoLog", "convertObservablesToOtherOne , 270");
+                Log.d("infoLog", "convertObservablesToAnotherOne , 270");
             })
 
     }
