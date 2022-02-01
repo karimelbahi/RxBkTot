@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         buffer()
         map()
         concatWith()
+        merge()
 
         /*
         * observables
@@ -201,7 +202,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun concatWith() {
-        val list = listOf(1, 2, 3, 4, 5, 67, 8, 9)
         val observable = Observable
             .interval(500, TimeUnit.SECONDS)
             .map { it * 3 }
@@ -217,6 +217,24 @@ class MainActivity : AppCompatActivity() {
             Log.d("infoLog", "concatWith , 200");
         })
     }
+
+    private fun merge() {
+        val observable = Observable
+            .interval(500, TimeUnit.SECONDS)
+            .map { it * 3 }
+
+        val mergeObservable = Observable.interval(1, TimeUnit.SECONDS)
+            .take(10)
+            .map { it * 2 }
+            .mergeWith(observable)
+
+        mergeObservable.subscribe({
+            Log.d("infoLog", "$it merge , 215");
+        }, {
+            Log.d("infoLog", "merge , 217");
+        })
+    }
+
 
 
 
