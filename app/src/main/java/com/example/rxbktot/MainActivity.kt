@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         skip()
         timer()
         distinct()
+        buffer()
 
         /*
         * observables
@@ -171,6 +172,17 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun buffer() {
+        val list = listOf(1, 2, 3, 4, 5, 67, 8, 9)
+        val observable = Observable
+            .fromIterable(list)
+            .buffer(3)
+        observable.subscribe({
+            Log.d("infoLog", "$it buffer , 168");
+        }, {
+            Log.d("infoLog", "buffer , 170");
+        })
+    }
 
 
     // observables
