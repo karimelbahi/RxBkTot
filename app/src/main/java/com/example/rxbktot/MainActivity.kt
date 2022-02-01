@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         timer()
         distinct()
         buffer()
+        map()
 
         /*
         * observables
@@ -183,6 +184,20 @@ class MainActivity : AppCompatActivity() {
             Log.d("infoLog", "buffer , 170");
         })
     }
+
+
+    private fun map() {
+        val list = listOf(1, 2, 3, 4, 5, 67, 8, 9)
+        val observable = Observable
+            .fromIterable(list)
+            .map { it * 2 }
+        observable.subscribe({
+            Log.d("infoLog", "$it map , 180");
+        }, {
+            Log.d("infoLog", "map , 182");
+        })
+    }
+
 
 
     // observables
