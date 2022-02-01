@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.kotlin.toObservable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.AsyncSubject
 import io.reactivex.rxjava3.subjects.BehaviorSubject
@@ -41,7 +42,8 @@ class MainActivity : AppCompatActivity() {
 //        asyncSubject()
 //        behaviourSubject()
 //        behaviourSubjectVisualSimulation()
-        replySubject()
+//        replySubject()
+        rxKotlin()
     }
 
 
@@ -478,6 +480,25 @@ class MainActivity : AppCompatActivity() {
             Log.e("karimDebug", "MainActivity, , 236");
         }, {
             Log.e("karimDebug", "MainActivity, , 238");
+        })
+
+    }
+
+    private fun rxKotlin() {
+        val list = listOf("hello", "from", "rxkotlin")
+
+        /*
+         *rx java
+         */
+        // val observable=Observable.fromIterable(list)
+
+        /*
+        * rx kotlin
+        * doc sample https://github.com/ReactiveX/RxKotlin
+        * */list.toObservable().subscribe({
+          Log.e("karimDebug","$it MainActivity, rxKotlin , 490");
+        },{
+            Log.e("karimDebug","MainActivity, rxKotlin , 492");
         })
 
     }
