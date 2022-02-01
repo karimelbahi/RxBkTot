@@ -10,6 +10,7 @@ import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.AsyncSubject
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
@@ -34,7 +35,8 @@ class MainActivity : AppCompatActivity() {
 //        coldObservables()
 //        coldToHotObservable()
 //        subjectAsObservableAndObserver()
-        publishSubjectAsObservableOnly()
+//        publishSubjectAsObservableOnly()
+        asyncSubject()
     }
 
 
@@ -383,6 +385,31 @@ class MainActivity : AppCompatActivity() {
             subject.onNext(10)
             subject.onNext(20)
         }
+    }
+
+    private fun asyncSubject() {
+
+        var observable = Observable
+            .interval(1, TimeUnit.SECONDS)
+            .take(3)
+
+
+        val subject = AsyncSubject.create<Long>()
+        observable.subscribe(subject)
+
+//        Thread.sleep(4000)
+
+        subject.subscribe({
+            Log.e("karimDebug", "$it MainActivity, , 234");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 236");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 238");
+        })
+
+        subject.onNext(10)
+        subject.onNext(20)
+
     }
 
 }
