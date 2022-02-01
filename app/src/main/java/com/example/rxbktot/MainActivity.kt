@@ -28,7 +28,9 @@ class MainActivity : AppCompatActivity() {
 //        single()
 //        completable()
 //        maybe()
-        flowable()
+//        flowable()
+        convertObservablesToOtherOne()
+
     }
 
     private fun observer() {
@@ -161,7 +163,6 @@ class MainActivity : AppCompatActivity() {
         Log.e("karimDebug", "MainActivity, onDataError , 156");
     }
 
-
     private fun completable() {
         val completable = Completable.create { emitter ->
             binding.editText.doOnTextChanged { text, start, before, count ->
@@ -238,6 +239,21 @@ class MainActivity : AppCompatActivity() {
             }, {
                 Log.e("karimDebug", "MainActivity, flowable , 238");
             })
+    }
+
+    private fun convertObservablesToOtherOne() {
+        var observer = Observable.range(1, 1000)
+
+        observer.toFlowable(BackpressureStrategy.MISSING)
+            .observeOn(Schedulers.io(), false, 5)
+            .subscribe({
+                Log.e("karimDebug", "$it MainActivity, flowable , 234");
+            }, {
+                Log.e("karimDebug", "MainActivity, flowable , 236");
+            }, {
+                Log.e("karimDebug", "MainActivity, flowable , 238");
+            })
+
     }
 
 }
