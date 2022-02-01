@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         concatWith()
         merge()
         zip()
+        flatMap()
 
         /*
         * observables
@@ -255,6 +256,17 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun flatMap() {
+        val observable = Observable
+            .just(1, 2, 3, 4, 5)
+            .flatMap { Observable.range(1, it) }
+
+        observable.subscribe({
+            Log.d("infoLog", "$it flatMap , 248");
+        }, {
+            Log.d("infoLog", "flatMap , 250");
+        })
+    }
 
 
     // observables
