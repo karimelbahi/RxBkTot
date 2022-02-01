@@ -2,6 +2,27 @@
 
 ## Samples
 
+### Operators
+* fromIterable
+* fromArray
+* repeat
+* range
+* rangeRepeat
+* vinterval
+* take
+* skip
+* timer
+* distinct
+* buffer
+* map
+* concatWith
+* merge
+* zip
+* flatMap
+* create
+* debounce
+
+### Observables
 * observer
 * scheduler
 * disposable
