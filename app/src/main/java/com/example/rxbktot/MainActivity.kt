@@ -45,6 +45,8 @@ class MainActivity : AppCompatActivity() {
         merge()
         zip()
         flatMap()
+        create()
+
 
         /*
         * observables
@@ -265,6 +267,21 @@ class MainActivity : AppCompatActivity() {
             Log.d("infoLog", "$it flatMap , 248");
         }, {
             Log.d("infoLog", "flatMap , 250");
+        })
+    }
+
+    private fun create() {
+        val observable = Observable
+            .create<String> { emitter ->
+                binding.editText.doOnTextChanged { text, start, before, count ->
+                    emitter.onNext(text.toString())
+                }
+            }
+
+        observable.subscribe({
+            Log.d("infoLog", "$it create , 264");
+        }, {
+            Log.d("infoLog", "create , 266");
         })
     }
 
