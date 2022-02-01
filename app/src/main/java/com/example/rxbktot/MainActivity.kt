@@ -26,24 +26,25 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        observer()
-//        scheduler()
-//        disposable()
-//        compositeDisposable()
-//        single()
-//        completable()
-//        maybe()
-//        flowable()
-//        convertObservablesToOtherOne()
-//        coldObservables()
-//        coldToHotObservable()
-//        subjectAsObservableAndObserver()
-//        publishSubjectAsObservableOnly()
-//        asyncSubject()
-//        behaviourSubject()
-//        behaviourSubjectVisualSimulation()
-//        replySubject()
+        observer()
+        scheduler()
+        disposable()
+        compositeDisposable()
+        single()
+        completable()
+        maybe()
+        flowable()
+        convertObservablesToOtherOne()
+        coldObservables()
+        coldToHotObservable()
+        subjectAsObservableAndObserver()
+        publishSubjectAsObservableOnly()
+        asyncSubject()
+        behaviourSubject()
+        behaviourSubjectVisualSimulation()
+        replySubject()
         rxKotlin()
+
     }
 
 
@@ -54,34 +55,34 @@ class MainActivity : AppCompatActivity() {
             .concatWith(firstObservable)
 /*        var observer = object : Observer<Int> {
             override fun onSubscribe(d: Disposable?) {
-                Log.e("karimDebug", "MainActivity, onSubscribe , 21");
+                Log.d("infoLog","onSubscribe , 57");
             }
 
             override fun onNext(t: Int?) {
-                Log.e("karimDebug", "MainActivity, onNext , 25");
+                Log.d("infoLog","onNext , 61");
             }
 
             override fun onError(e: Throwable?) {
-                Log.e("karimDebug", "MainActivity, onError , 29");
+                Log.d("infoLog","onError , 65");
             }
 
             override fun onComplete() {
-                Log.e("karimDebug", "MainActivity, onComplete , 33");
+                Log.d("infoLog","onComplete , 69");
             }
 
-        }*/
-//        observable.subscribe(observer)
+        }
+        observable.subscribe(observer)*/
         observable.subscribe(
             {
-                Log.e("karimDebug", "$it MainActivity, onNext , 25");
+                Log.d("infoLog", "$it MainActivity, onNext, 76");
 
             },
             {
-                Log.e("karimDebug", "$it MainActivity, onError , 29");
+                Log.d("infoLog", "$it MainActivity, onError, 80");
 
             },
             {
-                Log.e("karimDebug", "MainActivity, onComplete , 33");
+                Log.d("infoLog", "MainActivity, onComplete, 84");
             }
         )
     }
@@ -93,29 +94,30 @@ class MainActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { s ->
-                    Log.e("karimDebug", "MainActivity, scheduler , 70");
+                    Log.d("infoLog", "MainActivity, schedule, 96");
                 },
                 { e ->
-                    Log.e("karimDebug", "MainActivity, scheduler , 73");
+                    Log.d("infoLog", "MainActivity, schedule, 99");
                 })
     }
 
-    lateinit var mDisposable: Disposable
+    private lateinit var mDisposable: Disposable
     private fun disposable() {
         val observable = Observable.range(1, 1000)
         mDisposable = observable.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { s ->
-                    Log.e("karimDebug", "MainActivity, scheduler , 70");
+                    Log.d("infoLog", "MainActivity, schedule, 110");
                 },
                 { e ->
-                    Log.e("karimDebug", "MainActivity, scheduler , 73");
+                    Log.d("infoLog", "MainActivity, schedule, 113");
                 })
     }
 
-    lateinit var mCompositeDisposable: CompositeDisposable
+    private lateinit var mCompositeDisposable: CompositeDisposable
     private fun compositeDisposable() {
+        mCompositeDisposable = CompositeDisposable()
         val observable = Observable.range(1, 1000)
         mCompositeDisposable.add(
             observable
@@ -123,17 +125,17 @@ class MainActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { s ->
-                        Log.e("karimDebug", "MainActivity, scheduler , 70");
+                        Log.d("infoLog", "MainActivity, compositeDisposable, 127");
                     },
                     { e ->
-                        Log.e("karimDebug", "MainActivity, scheduler , 73");
+                        Log.d("infoLog", "MainActivity, schedule, 130");
                     })
         )
     }
 
     override fun onDestroy() {
 //        mDisposable.dispose()
-        mCompositeDisposable.dispose()
+//        mCompositeDisposable.dispose()
         super.onDestroy()
     }
 
@@ -141,13 +143,13 @@ class MainActivity : AppCompatActivity() {
         var single = Single.just(10)
 /*        var singleObserver = object : SingleObserver<Int> {
             override fun onSubscribe(d: Disposable?) {
-                Log.e("karimDebug", "MainActivity, onSubscribe , 21");
+                Log.d("infoLog","onSubscribe , 145");
             }
             override fun onError(e: Throwable?) {
-                Log.e("karimDebug", "MainActivity, onError , 29");
+                Log.d("infoLog","onError , 148");
             }
             override fun onSuccess(t: Int?) {
-                Log.e("karimDebug", "MainActivity, onSuccess , 76");
+                Log.d("infoLog","onSuccess , 151");
             }
         }
         single.subscribe(singleObserver)*/
@@ -155,11 +157,11 @@ class MainActivity : AppCompatActivity() {
         // lambda
 /*        single.subscribe(
             {
-                Log.e("karimDebug", "$it MainActivity, onNext , 25");
+                Log.d("infoLog","$it single , 159");
 
             },
             {
-                Log.e("karimDebug", "$it MainActivity, onError , 29");
+                Log.d("infoLog","$it single , 163");
 
             }
         )*/
@@ -170,11 +172,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onDateSuccess(result: Int) {
-        Log.e("karimDebug", "MainActivity, onDateSuccess , 151");
+        Log.d("infoLog","$result onDateSuccess , 174");
     }
 
     private fun onDataError(e: Throwable) {
-        Log.e("karimDebug", "MainActivity, onDataError , 156");
+        Log.d("infoLog","onDataError , 178");
     }
 
     private fun completable() {
@@ -183,40 +185,40 @@ class MainActivity : AppCompatActivity() {
                 if (text.toString() == "completable") {
                     emitter.onComplete()
                 } else {
-                    Log.e("karimDebug", "MainActivity, completable , 170");
+                    Log.d("infoLog","completable , 187");
                 }
             }
         }
 
 /*        completable.subscribe(object : CompletableObserver {
             override fun onSubscribe(d: Disposable?) {
-
+                Log.d("infoLog", "onSubscribe , 194");
             }
 
             override fun onComplete() {
-                Log.e("karimDebug","MainActivity, onComplete , 180");
+                Log.d("infoLog", "onComplete , 198");
             }
 
             override fun onError(e: Throwable?) {
-
+                Log.d("infoLog", "onError , 202");
             }
         })*/
 /*        completable.subscribe(
             {
-                Log.e("karimDebug", "onComplete MainActivity, completable , 173");
+                Log.d("infoLog","completable , 207");
             }, { e ->
-                Log.e("karimDebug","onError MainActivity, completable , 191");
+                Log.d("infoLog","completable , 209");
             }
         )*/
         completable.subscribe(::onCompletableSuccess, ::onCompletableError)
     }
 
     private fun onCompletableSuccess() {
-        Log.e("karimDebug", "MainActivity, onCompletableSuccess , 196");
+        Log.d("infoLog", "onCompletableSuccess , 216");
     }
 
     private fun onCompletableError(e: Throwable) {
-        Log.e("karimDebug", "MainActivity, onCompletableError , 199");
+        Log.d("infoLog", "onCompletableError , 220");
     }
 
     private fun maybe() {
@@ -230,13 +232,13 @@ class MainActivity : AppCompatActivity() {
         }
         maybe.subscribe(
             {
-                Log.e("karimDebug", "$it MainActivity, maybe , 216");
+                Log.d("infoLog", "$it MainActivity, maybe");
             },
             {
-                Log.e("karimDebug", "MainActivity, maybe , 219");
+                Log.d("infoLog", "MainActivity, maybe");
             },
             {
-                Log.e("karimDebug", "MainActivity, maybe , 222");
+                Log.d("infoLog", "MainActivity, maybe");
             }
         )
     }
@@ -247,12 +249,12 @@ class MainActivity : AppCompatActivity() {
         flowable.onBackpressureLatest()
             .observeOn(Schedulers.io(), false, 5)
             .subscribe({
-                Log.e("karimDebug", "$it MainActivity, flowable , 234");
+                Log.d("infoLog", "$it  flowable , 251");
             }, {
-                Log.e("karimDebug", "MainActivity, flowable , 236");
+                Log.d("infoLog", "flowable , 253");
             }, {
-                Log.e("karimDebug", "MainActivity, flowable , 238");
-            })
+            }
+            )
     }
 
     private fun convertObservablesToOtherOne() {
@@ -261,11 +263,11 @@ class MainActivity : AppCompatActivity() {
         observable.toFlowable(BackpressureStrategy.MISSING)
             .observeOn(Schedulers.io(), false, 5)
             .subscribe({
-                Log.e("karimDebug", "$it MainActivity, flowable , 234");
+                Log.d("infoLog", "$it convertObservablesToOtherOne , 265");
             }, {
-                Log.e("karimDebug", "MainActivity, flowable , 236");
+                Log.d("infoLog", "convertObservablesToOtherOne , 267");
             }, {
-                Log.e("karimDebug", "MainActivity, flowable , 238");
+                Log.d("infoLog", "convertObservablesToOtherOne , 270");
             })
 
     }
@@ -274,21 +276,22 @@ class MainActivity : AppCompatActivity() {
         var observable = Observable.interval(1, TimeUnit.SECONDS).take(10)
 
         observable.subscribe({
-            Log.e("karimDebug", "$it MainActivity, flowable , 234");
+            Log.d("infoLog", "$it coldObservables , 278");
+            Log.d("infoLog", "$it MainActivity, flowable");
         }, {
-            Log.e("karimDebug", "MainActivity, flowable , 236");
+            Log.d("infoLog", "coldObservables , 281");
         }, {
-            Log.e("karimDebug", "MainActivity, flowable , 238");
+            Log.d("infoLog", "coldObservables , 284");
         })
 
         Thread.sleep(4000)
 
         observable.subscribe({
-            Log.e("karimDebug", "$it MainActivity, flowable , 234");
+            Log.d("infoLog", "$it coldObservables , 289");
         }, {
-            Log.e("karimDebug", "MainActivity, flowable , 236");
+            Log.d("infoLog", "coldObservables , 291");
         }, {
-            Log.e("karimDebug", "MainActivity, flowable , 238");
+            Log.d("infoLog", "coldObservables , 293");
         })
     }
 
@@ -302,21 +305,21 @@ class MainActivity : AppCompatActivity() {
 //        Thread.sleep(1000)
 
         observable.subscribe({
-            Log.e("karimDebug", "$it MainActivity, flowable , 234");
+            Log.d("infoLog", "$it coldToHotObservable , 307");
         }, {
-            Log.e("karimDebug", "MainActivity, flowable , 236");
+            Log.d("infoLog", "coldToHotObservable , 309");
         }, {
-            Log.e("karimDebug", "MainActivity, flowable , 238");
+            Log.d("infoLog", "coldToHotObservable , 311");
         })
 
         Thread.sleep(4000)
 
         observable.subscribe({
-            Log.e("karimDebug", "$it MainActivity, flowable , 234");
+            Log.d("infoLog", "$it coldToHotObservable , 317");
         }, {
-            Log.e("karimDebug", "MainActivity, flowable , 236");
+            Log.d("infoLog", "coldToHotObservable , 319");
         }, {
-            Log.e("karimDebug", "MainActivity, flowable , 238");
+            Log.d("infoLog", "coldToHotObservable , 321");
         })
     }
 
@@ -335,11 +338,11 @@ class MainActivity : AppCompatActivity() {
          * will not start form 0 because it started by the previous subscribe before next one
          * */
         subject.subscribe({
-            Log.e("karimDebug", "$it MainActivity, , 234");
+            Log.d("infoLog", "$it subjectAsObservableAndObserver , 340");
         }, {
-            Log.e("karimDebug", "MainActivity, , 236");
+            Log.d("infoLog", "subjectAsObservableAndObserver , 342");
         }, {
-            Log.e("karimDebug", "MainActivity, , 238");
+            Log.d("infoLog", "subjectAsObservableAndObserver , 344");
         })
 
         Thread.sleep(2000)
@@ -348,22 +351,22 @@ class MainActivity : AppCompatActivity() {
         * will continue with first one because it is hot
         * */
         subject.subscribe({
-            Log.e("karimDebug", "$it MainActivity,  234");
+            Log.d("infoLog", "$it subjectAsObservableAndObserver , 353");
         }, {
-            Log.e("karimDebug", "MainActivity,  236");
+            Log.d("infoLog", "subjectAsObservableAndObserver , 355");
         }, {
-            Log.e("karimDebug", "MainActivity,  238");
+            Log.d("infoLog", "subjectAsObservableAndObserver , 357");
         })
 
         /*
         * will start from new because it is cold
         * */
         observable.subscribe({
-            Log.e("karimDebug", "$it MainActivity,  234");
+            Log.d("infoLog", "$it subjectAsObservableAndObserver , 364");
         }, {
-            Log.e("karimDebug", "MainActivity,  236");
+            Log.d("infoLog", "subjectAsObservableAndObserver , 366");
         }, {
-            Log.e("karimDebug", "MainActivity,  238");
+            Log.d("infoLog", "subjectAsObservableAndObserver , 368");
         })
 
     }
@@ -381,11 +384,9 @@ class MainActivity : AppCompatActivity() {
         binding.editText.doOnTextChanged { text, start, before, count ->
             if (text.toString() == "start") {
                 subject.subscribe({
-                    Log.e("karimDebug", "$it MainActivity, , 234");
+                    Log.d("infoLog", "$it publishSubjectAsObservableOnly , 386");
                 }, {
-                    Log.e("karimDebug", "MainActivity, , 236");
                 }, {
-                    Log.e("karimDebug", "MainActivity, , 238");
                 })
             }
 
@@ -407,11 +408,11 @@ class MainActivity : AppCompatActivity() {
 //        Thread.sleep(4000)
 
         subject.subscribe({
-            Log.e("karimDebug", "$it MainActivity, , 234");
+            Log.d("infoLog", "$it asyncSubject , 410");
         }, {
-            Log.e("karimDebug", "MainActivity, , 236");
+            Log.d("infoLog", "asyncSubject , 412");
         }, {
-            Log.e("karimDebug", "MainActivity, , 238");
+            Log.d("infoLog", "asyncSubject , 414");
         })
 
         subject.onNext(10)
@@ -432,11 +433,11 @@ class MainActivity : AppCompatActivity() {
         Thread.sleep(1200)
 
         subject.subscribe({
-            Log.e("karimDebug", "$it MainActivity, , 234");
+            Log.d("infoLog", "$it behaviourSubject , 435");
         }, {
-            Log.e("karimDebug", "MainActivity, , 236");
+            Log.d("infoLog", "behaviourSubject , 437");
         }, {
-            Log.e("karimDebug", "MainActivity, , 238");
+            Log.d("infoLog", "behaviourSubject , 439");
         })
 
     }
@@ -450,11 +451,11 @@ class MainActivity : AppCompatActivity() {
         subject.onNext(1)
         subject.onNext(2)
         subject.subscribe({
-            Log.e("karimDebug", "$it MainActivity, , 234");
+            Log.d("infoLog", "$it behaviourSubjectVisualSimulation , 453");
         }, {
-            Log.e("karimDebug", "MainActivity, , 236");
+            Log.d("infoLog", "behaviourSubjectVisualSimulation , 455");
         }, {
-            Log.e("karimDebug", "MainActivity, , 238");
+            Log.d("infoLog", "behaviourSubjectVisualSimulation , 457");
         })
 
         subject.onNext(10)
@@ -475,11 +476,11 @@ class MainActivity : AppCompatActivity() {
         Thread.sleep(4000)
 
         subject.subscribe({
-            Log.e("karimDebug", "$it MainActivity, , 234");
+            Log.d("infoLog", "$it replySubject , 478");
         }, {
-            Log.e("karimDebug", "MainActivity, , 236");
+            Log.d("infoLog", "replySubject , 480");
         }, {
-            Log.e("karimDebug", "MainActivity, , 238");
+            Log.d("infoLog", "replySubject , 482");
         })
 
     }
@@ -496,9 +497,9 @@ class MainActivity : AppCompatActivity() {
         * rx kotlin
         * doc sample https://github.com/ReactiveX/RxKotlin
         * */list.toObservable().subscribe({
-          Log.e("karimDebug","$it MainActivity, rxKotlin , 490");
-        },{
-            Log.e("karimDebug","MainActivity, rxKotlin , 492");
+            Log.d("infoLog", "$it rxKotlin , 499");
+        }, {
+            Log.d("infoLog", "rxKotlin , 501");
         })
 
     }
