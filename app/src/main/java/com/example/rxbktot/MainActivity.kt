@@ -30,9 +30,10 @@ class MainActivity : AppCompatActivity() {
 //        maybe()
 //        flowable()
 //        convertObservablesToOtherOne()
-        coldObservables()
-
+//        coldObservables()
+        coldToHotObservable()
     }
+
 
     private fun observer() {
         var firstObservable =
@@ -259,6 +260,34 @@ class MainActivity : AppCompatActivity() {
 
     private fun coldObservables() {
         var observable = Observable.interval(1, TimeUnit.SECONDS).take(10)
+
+        observable.subscribe({
+            Log.e("karimDebug", "$it MainActivity, flowable , 234");
+        }, {
+            Log.e("karimDebug", "MainActivity, flowable , 236");
+        }, {
+            Log.e("karimDebug", "MainActivity, flowable , 238");
+        })
+
+        Thread.sleep(4000)
+
+        observable.subscribe({
+            Log.e("karimDebug", "$it MainActivity, flowable , 234");
+        }, {
+            Log.e("karimDebug", "MainActivity, flowable , 236");
+        }, {
+            Log.e("karimDebug", "MainActivity, flowable , 238");
+        })
+    }
+
+    private fun coldToHotObservable() {
+        var observable = Observable
+            .interval(1, TimeUnit.SECONDS)
+            .take(10)
+            .publish()
+        observable.connect()
+
+//        Thread.sleep(1000)
 
         observable.subscribe({
             Log.e("karimDebug", "$it MainActivity, flowable , 234");
