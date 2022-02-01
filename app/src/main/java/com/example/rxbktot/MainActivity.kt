@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         map()
         concatWith()
         merge()
+        zip()
 
         /*
         * observables
@@ -235,6 +236,24 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun zip() {
+        val observable = Observable
+            .interval(500, TimeUnit.SECONDS)
+            .map { it * 3 }
+
+        val zipObservable = Observable.interval(1, TimeUnit.SECONDS)
+            .take(10)
+            .map { it * 2 }
+            .zipWith(observable, { l1, l2 ->
+                "$l1 and $l2"
+            })
+
+        zipObservable.subscribe({
+            Log.d("infoLog", "$it zip , 236");
+        }, {
+            Log.d("infoLog", "zip , 238");
+        })
+    }
 
 
 
