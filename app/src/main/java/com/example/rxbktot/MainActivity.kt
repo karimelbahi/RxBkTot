@@ -13,6 +13,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.AsyncSubject
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.ReplaySubject
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +40,8 @@ class MainActivity : AppCompatActivity() {
 //        publishSubjectAsObservableOnly()
 //        asyncSubject()
 //        behaviourSubject()
-        behaviourSubjectVisualSimulation()
+//        behaviourSubjectVisualSimulation()
+        replySubject()
     }
 
 
@@ -455,6 +457,28 @@ class MainActivity : AppCompatActivity() {
 
         subject.onNext(10)
         subject.onNext(20)
+
+    }
+
+    private fun replySubject() {
+
+        var observable = Observable
+            .interval(500, TimeUnit.MILLISECONDS)
+            .take(10)
+
+        val subject = ReplaySubject.create<Long>()
+
+        observable.subscribe(subject)
+
+        Thread.sleep(4000)
+
+        subject.subscribe({
+            Log.e("karimDebug", "$it MainActivity, , 234");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 236");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 238");
+        })
 
     }
 
