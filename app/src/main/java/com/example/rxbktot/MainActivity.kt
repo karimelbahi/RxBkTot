@@ -26,6 +26,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        /*
+         * operators
+         * */
+        fromIterable()
+
+
+        /*
+        * observables
+        * */
         observer()
         scheduler()
         disposable()
@@ -48,6 +57,19 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun fromIterable() {
+        val list = listOf(1, 2, 3, 4, 5, 67, 8, 9)
+        val observable = Observable.fromIterable(list)
+        observable.subscribe({
+            Log.d("infoLog", "$it fromIterable , 59");
+        }, {
+            Log.d("infoLog", "fromIterable , 61");
+        })
+
+    }
+
+
+   // observables
     private fun observer() {
         var firstObservable =
             Observable.interval(1, TimeUnit.MILLISECONDS).take(10).map { it * 100 }
@@ -172,11 +194,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onDateSuccess(result: Int) {
-        Log.d("infoLog","$result onDateSuccess , 174");
+        Log.d("infoLog", "$result onDateSuccess , 174");
     }
 
     private fun onDataError(e: Throwable) {
-        Log.d("infoLog","onDataError , 178");
+        Log.d("infoLog", "onDataError , 178");
     }
 
     private fun completable() {
@@ -185,7 +207,7 @@ class MainActivity : AppCompatActivity() {
                 if (text.toString() == "completable") {
                     emitter.onComplete()
                 } else {
-                    Log.d("infoLog","completable , 187");
+                    Log.d("infoLog", "completable , 187");
                 }
             }
         }
@@ -503,5 +525,6 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+
 
 }
