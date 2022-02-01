@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         fromIterable()
         fromArray()
         repeat()
+        range()
 
         /*
         * observables
@@ -78,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+
     private fun repeat() {
         val list = listOf(1, 2, 3, 4, 5, 67, 8, 9)
         val observable = Observable.fromArray(list).repeat(2)
@@ -85,6 +87,15 @@ class MainActivity : AppCompatActivity() {
             Log.e("karimDebug", "$it MainActivity, repeat , 82");
         }, {
             Log.e("karimDebug", "MainActivity, repeat , 85");
+        })
+    }
+
+    private fun range() {
+        val observable = Observable.fromArray(1, 9)
+        observable.subscribe({
+            Log.d("infoLog", "$it range , 92");
+        }, {
+            Log.d("infoLog", "range , 94");
         })
     }
 
