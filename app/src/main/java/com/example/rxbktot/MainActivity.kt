@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         distinct()
         buffer()
         map()
+        concatWith()
 
         /*
         * observables
@@ -195,6 +196,25 @@ class MainActivity : AppCompatActivity() {
             Log.d("infoLog", "$it map , 180");
         }, {
             Log.d("infoLog", "map , 182");
+        })
+    }
+
+
+    private fun concatWith() {
+        val list = listOf(1, 2, 3, 4, 5, 67, 8, 9)
+        val observable = Observable
+            .interval(500, TimeUnit.SECONDS)
+            .map { it * 3 }
+
+        val concatObservable = Observable.interval(1, TimeUnit.SECONDS)
+            .take(10)
+            .map { it * 2 }
+            .concatWith(observable)
+
+        concatObservable.subscribe({
+            Log.d("infoLog", "$it concatWith , 198");
+        }, {
+            Log.d("infoLog", "concatWith , 200");
         })
     }
 
