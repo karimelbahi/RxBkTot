@@ -11,6 +11,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.AsyncSubject
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
@@ -36,7 +37,9 @@ class MainActivity : AppCompatActivity() {
 //        coldToHotObservable()
 //        subjectAsObservableAndObserver()
 //        publishSubjectAsObservableOnly()
-        asyncSubject()
+//        asyncSubject()
+//        behaviourSubject()
+        behaviourSubjectVisualSimulation()
     }
 
 
@@ -399,6 +402,49 @@ class MainActivity : AppCompatActivity() {
 
 //        Thread.sleep(4000)
 
+        subject.subscribe({
+            Log.e("karimDebug", "$it MainActivity, , 234");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 236");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 238");
+        })
+
+        subject.onNext(10)
+        subject.onNext(20)
+
+    }
+
+    private fun behaviourSubject() {
+
+        var observable = Observable
+            .interval(500, TimeUnit.MILLISECONDS)
+            .take(10)
+
+        val subject = BehaviorSubject.create<Long>()
+
+        observable.subscribe(subject)
+
+        Thread.sleep(1200)
+
+        subject.subscribe({
+            Log.e("karimDebug", "$it MainActivity, , 234");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 236");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 238");
+        })
+
+    }
+
+    private fun behaviourSubjectVisualSimulation() {
+
+        val subject = BehaviorSubject.create<Long>()
+        /*
+         * will be ignored
+         * */
+        subject.onNext(1)
+        subject.onNext(2)
         subject.subscribe({
             Log.e("karimDebug", "$it MainActivity, , 234");
         }, {
