@@ -48,8 +48,6 @@ class MainActivity : AppCompatActivity() {
         create()
         debounce()
 
-
-
         /*
         * observables
         * */
