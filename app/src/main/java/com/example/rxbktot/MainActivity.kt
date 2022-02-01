@@ -10,6 +10,7 @@ import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +32,8 @@ class MainActivity : AppCompatActivity() {
 //        flowable()
 //        convertObservablesToOtherOne()
 //        coldObservables()
-        coldToHotObservable()
+//        coldToHotObservable()
+        subjectAsObservableAndObserver()
     }
 
 
@@ -306,6 +308,54 @@ class MainActivity : AppCompatActivity() {
         }, {
             Log.e("karimDebug", "MainActivity, flowable , 238");
         })
+    }
+
+    private fun subjectAsObservableAndObserver() {
+        var observable = Observable
+            .interval(1, TimeUnit.SECONDS)
+            .take(10)
+
+        val subject = PublishSubject.create<Long>()
+
+        observable.subscribe(subject)
+
+        Thread.sleep(3000)
+
+        /**
+         * will not start form 0 because it started by the previous subscribe before next one
+         * */
+        subject.subscribe({
+            Log.e("karimDebug", "$it MainActivity, , 234");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 236");
+        }, {
+            Log.e("karimDebug", "MainActivity, , 238");
+        })
+
+        Thread.sleep(2000)
+
+        /*
+        * will continue with first one because it is hot
+        * */
+        subject.subscribe({
+            Log.e("karimDebug", "$it MainActivity,  234");
+        }, {
+            Log.e("karimDebug", "MainActivity,  236");
+        }, {
+            Log.e("karimDebug", "MainActivity,  238");
+        })
+
+        /*
+        * will start from new because it is cold
+        * */
+        observable.subscribe({
+            Log.e("karimDebug", "$it MainActivity,  234");
+        }, {
+            Log.e("karimDebug", "MainActivity,  236");
+        }, {
+            Log.e("karimDebug", "MainActivity,  238");
+        })
+
     }
 
 }
