@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
 //        completable()
 //        maybe()
 //        flowable()
-        convertObservablesToOtherOne()
+//        convertObservablesToOtherOne()
+        coldObservables()
 
     }
 
@@ -242,9 +243,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun convertObservablesToOtherOne() {
-        var observer = Observable.range(1, 1000)
+        var observable = Observable.range(1, 1000)
 
-        observer.toFlowable(BackpressureStrategy.MISSING)
+        observable.toFlowable(BackpressureStrategy.MISSING)
             .observeOn(Schedulers.io(), false, 5)
             .subscribe({
                 Log.e("karimDebug", "$it MainActivity, flowable , 234");
@@ -254,6 +255,28 @@ class MainActivity : AppCompatActivity() {
                 Log.e("karimDebug", "MainActivity, flowable , 238");
             })
 
+    }
+
+    private fun coldObservables() {
+        var observable = Observable.interval(1, TimeUnit.SECONDS).take(10)
+
+        observable.subscribe({
+            Log.e("karimDebug", "$it MainActivity, flowable , 234");
+        }, {
+            Log.e("karimDebug", "MainActivity, flowable , 236");
+        }, {
+            Log.e("karimDebug", "MainActivity, flowable , 238");
+        })
+
+        Thread.sleep(4000)
+
+        observable.subscribe({
+            Log.e("karimDebug", "$it MainActivity, flowable , 234");
+        }, {
+            Log.e("karimDebug", "MainActivity, flowable , 236");
+        }, {
+            Log.e("karimDebug", "MainActivity, flowable , 238");
+        })
     }
 
 }
