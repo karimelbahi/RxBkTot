@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
          * operators
          * */
         fromIterable()
+        fromArray()
 
 
         /*
@@ -64,6 +65,16 @@ class MainActivity : AppCompatActivity() {
             Log.d("infoLog", "$it fromIterable , 59");
         }, {
             Log.d("infoLog", "fromIterable , 61");
+        })
+
+    }
+
+    private fun fromArray() {
+        val observable = Observable.fromArray(1, 2, 3, 4, 5, 67, 8, 9)
+        observable.subscribe({
+            Log.d("infoLog", "$it fromArray , 71");
+        }, {
+            Log.e("karimDebug", "MainActivity, fromArray , 73");
         })
 
     }
