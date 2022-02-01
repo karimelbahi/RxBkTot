@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity() {
         zip()
         flatMap()
         create()
+        debounce()
+
 
 
         /*
@@ -282,6 +284,21 @@ class MainActivity : AppCompatActivity() {
             Log.d("infoLog", "$it create , 264");
         }, {
             Log.d("infoLog", "create , 266");
+        })
+    }
+
+    private fun debounce() {
+        val observable = Observable
+            .create<String> { emitter ->
+                binding.editText.doOnTextChanged { text, start, before, count ->
+                    emitter.onNext(text.toString())
+                }
+            }.debounce(1, TimeUnit.SECONDS)
+
+        observable.subscribe({
+            Log.d("infoLog","$it debounce , 278");
+        }, {
+            Log.d("infoLog","debounce , 280");
         })
     }
 
